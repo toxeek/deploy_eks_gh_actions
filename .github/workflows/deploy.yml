@@ -1,0 +1,44 @@
+name: "Deploy EKS"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - development
+  
+jobs:
+  Deploy_Dev:
+    if: github.ref == 'refs/heads/development'
+    uses: toxeek/deploy_eks_gh_actions/.github/workflows/aws_tf_deploy.yml@development
+    with:
+      tf_version: 1.9.5
+      gh_environment: development
+      aws_region: eu-west-1
+
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  Deploy_Uat:
+    if: github.ref == 'refs/heads/main'
+    uses: toxeek/gitreusableflows/.github/workflows/aws_tf_deploy.yml@main
+    with:
+      tf_version: 1.9.5
+      gh_environment: uat
+      aws_region: eu-west-1
+
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  Deploy_Prod:
+    if: github.ref == 'refs/heads/main'
+    uses: toxeek/gitreusableflows/.github/workflows/aws_tf_deploy.yml@main
+    with:
+      tf_version: 1.9.5
+      gh_environment: production
+      aws_region: eu-west-1
+
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
