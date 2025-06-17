@@ -33,7 +33,7 @@ jobs:
 
   Deploy_Prod:
     if: github.ref == 'refs/heads/main'
-    uses: toxeek/deploy_eks_gh_actions.github/workflows/aws_tf_deploy.yml@main
+    uses: toxeek/deploy_eks_gh_actions/.github/workflows/aws_tf_deploy.yml@main
     with:
       tf_version: 1.9.5
       gh_environment: production
