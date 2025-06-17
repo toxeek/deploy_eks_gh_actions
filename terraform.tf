@@ -30,6 +30,7 @@ provider "aws" {
   default_tags {
     tags = {
       iac_environment = var.iac_environment_tag
+      deployed_by = "terraform"
     }
   }
 }
