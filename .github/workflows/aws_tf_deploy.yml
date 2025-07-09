@@ -50,6 +50,10 @@ jobs:
       run:
         shell: bash
     steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3.1.0
+
       - id: install-aws-cli
         uses: unfor19/install-aws-cli-action@v1
         with:
@@ -75,10 +79,14 @@ jobs:
         shell: bash
     steps:
 
+      - name: Checkout
+        uses: actions/checkout@v3.1.0
+    
       - name: Setup TFLint
         uses: terraform-linters/setup-tflint@v4
         with:
           tflint_version: v0.52.0
+      
       - name: Show version
         run: tflint --version
 
@@ -120,6 +128,9 @@ jobs:
       run:
         shell: bash
     steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3.1.0
 
       - name: Create tf workspace
         run: |
