@@ -139,7 +139,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         run: |
-          terraform plan -out=${{ inputs.gh_environment }}-plan.tfplan -var-file=${{ inputs.gh_environment }}.tfvars -input=false
+          terraform plan -out=${{ github.workspace }}/${{ inputs.gh_environment }}-plan.tfplan -var-file=${{ inputs.gh_environment }}.tfvars -input=false
         continue-on-error: true
 
       - name: Terraform Plan Status
@@ -147,4 +147,4 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        run: terraform apply -input=false ${{ inputs.gh_environment }}-plan.tfplan
+        run: terraform apply -input=false ${{ github.workspace }}/${{ inputs.gh_environment }}-plan.tfplan
